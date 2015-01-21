@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
@@ -35,5 +39,72 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    public void convert(View v){
+        TextView tvOutput = (TextView)findViewById(R.id.tvOutput);
+        EditText etInput = (EditText)findViewById(R.id.etInput);
+        String s = etInput.getText().toString();
+        Double val1 = Double.parseDouble(s);
+        RadioGroup rgFrom = (RadioGroup)findViewById(R.id.rgFrom);
+        RadioGroup rgTo = (RadioGroup)findViewById(R.id.rgTo);
+        int selFrom = rgFrom.getCheckedRadioButtonId();
+        int selTo = rgTo.getCheckedRadioButtonId();
+        if (selFrom == R.id.rbFrmC) { //The user wants to convert from Celsius.
+            if(selTo == R.id.rbToC){
+                String val = String.format("%.2f",val1);
+                 tvOutput.setText(val);
+
+            }else if(selTo == R.id.rbToF){
+                val1 = (val1 * (9/5)) + 32;
+                String val = String.format("%.2f",val1);
+                tvOutput.setText(val);
+
+            }
+            else if(selTo == R.id.rbToK){
+                val1 = val1 + 273.15;
+                String val = String.format("%.2f",val1);
+                tvOutput.setText(val);
+
+            }
+        }else if (selFrom == R.id.rbFrmF) { //The user wants to convert from Celsius.
+            if(selTo == R.id.rbToC){
+                val1 = (val1 - 32) * 5/9;
+                String val = String.format("%.2f",val1);
+                tvOutput.setText(val);
+
+            }else if(selTo == R.id.rbToF){
+
+                String val = String.format("%.2f",val1);
+                tvOutput.setText(val);
+
+            }
+            else if(selTo == R.id.rbToK){
+                val1 = (((val1 - 32) * 5)/9) + 273.15;
+                String val = String.format("%.2f",val1);
+                tvOutput.setText(val);
+
+            }
+        }else if (selFrom == R.id.rbFrmK) { //The user wants to convert from Celsius.
+            if(selTo == R.id.rbToC){
+                val1 = val1 - 273.15;
+                String val = String.format("%.2f",val1);
+                tvOutput.setText(val);
+
+            }else if(selTo == R.id.rbToF){
+                val1 = (((val1 - 273.15) * 9)/5) + 32;
+                String val = String.format("%.2f",val1);
+                tvOutput.setText(val);
+
+            }
+            else if(selTo == R.id.rbToK){
+
+                String val = String.format("%.2f",val1);
+                tvOutput.setText(val);
+
+            }
+        }
     }
 }
